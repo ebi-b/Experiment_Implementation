@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <style>
+        .flex-container {
+            margin-right: 15px;
+            margin-left: 20px;
+
+            /* Use another value to see the result */
+            width: 95%;
+        }
+
+        .flex-container>div {
+            width: 100%;
+            margin: 5px;
+            border-radius: 3px;
+            background-color: #8ebf42;
+        }
+
+        .top-right {
+            position: absolute;
+            opacity: 0.8;
+            /* for demo purpose  */
+            z-index: 9;
+            right: 10px;
+            top: 0px;
+        }
+
+        .confirmation {
+            margin-right: 15px;
+            margin-left: 20px;
+            margin-top: 2%;
+            position: relative;
+        }
+
+        .button {
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 15px 26px;
+            color: #FFF;
+            background-color: #0f868c;
+            border-radius: 4px;
+            border: 1px solid #0f868c;
+            text-align: center;
+            width: 100%;
+        }
+
+        form { display: flex; }
+        input[type=text] { flex-grow: 1; }
+    </style>
+    <title>Consent Form</title>
+</head>
+
+<body>
+    <div class="top-right">
+        <img src="images/unimelb-logo.jpg" alt="University of Melbourne Logo">
+
+    </div>
+    <div class="flex-container">
+        <h1
+            style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:0in;font-size:17px;font-family:"Cambria",serif;color:#1F497D;font-weight:normal;'>
+            <span style="width:127px;height:128px;"><span style="font-size:24px;">Consent Form</span></span>
+        </h1>
+        <h2
+            style='margin:0in;line-height:115%;font-size:16px;font-family:"Cambria",serif;font-weight:normal;margin-top:6.0pt;'>
+            University of Melbourne, School of Computing and Information Systems, Interaction Design Lab</h2>
+        <h2 style='margin:0in;line-height:115%;font-size:16px;font-family:"Cambria",serif;font-weight:normal;'><span
+                style='font-family:"Cambria",serif;color:#1F497D;'><span
+                    style="font-size:17px;line-height:115%;"><br>&nbsp;</span></span></h2>
+        <h2 style='margin:0in;line-height:115%;font-size:16px;font-family:"Cambria",serif;font-weight:normal;'>
+            <strong><em><span
+                        style="font-size:19px;line-height:115%;color:#1F497D;">Project:&nbsp;</span></em></strong><strong><em><span
+                        style="font-size:19px;line-height:115%;color:#1F497D;">Evaluation of Mental Workload
+                        Questionnaires in
+                        Everyday Tasks</span></em></strong>
+        </h2>
+        <h2 style='margin:0in;line-height:115%;font-size:16px;font-family:"Cambria",serif;font-weight:normal;'>
+            <strong><span style="color:#1F497D;">Primary Researcher:&nbsp;</span></strong>Ebrahim Babaei , PhD Student,
+            School of
+            Computing and Information Systems, The University of Melbourne
+        </h2>
+        <p
+            style='margin:0in;line-height:115%;font-size:16px;font-family:"Cambria",serif;margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;'>
+            Email: <a href="mailto:ebabaei@student.unimelb.edu.au">ebabaei@student.unimelb.edu.au</a><span
+                style="color:blue;text-decoration:underline;">&nbsp;</span></p>
+        <p
+            style='margin:0in;line-height:115%;font-size:16px;font-family:"Cambria",serif;margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;'>
+            <strong><span style="color:#1F497D;">Additional Researchers:</span></strong><span
+                style="color:#1F497D;">&nbsp;</span>
+        </p>
+        <p
+            style='margin:0in;line-height:115%;font-size:16px;font-family:"Cambria",serif;margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;'>
+            <span style="color:black;">Dr. Eduardo Velloso (Lecturer, School of Computing and Information Systems, The
+                University of Melbourne, email:&nbsp;</span><a
+                href="mailto:eduardo.velloso@unimelb.edu.au">eduardo.velloso@unimelb.edu.au</a><span
+                style="color:black;">)</span>
+        </p>
+        <p
+            style='margin:0in;line-height:115%;font-size:16px;font-family:"Cambria",serif;margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;'>
+            <span style="color:black;">Dr. Tilman Dingler (Research Fellow, School of Computing and Information Systems,
+                The
+                University of Melbourne, email:&nbsp;</span><a
+                href="mailto:tilman.dingler@unimelb.edu.au">tilman.dingler@unimelb.edu.au</a><span
+                style="color:black;">)</span>
+        </p>
+        <p style='margin:0in;line-height:normal;font-size:16px;font-family:"Cambria",serif;'><br></p>
+        <ol style="list-style-type: decimal;margin-left:25.700000000000003px;">
+            <li>I consent to participate in this project, the details of which have been explained to me, and I have
+                been
+                provided with a written plain language statement to keep.&nbsp;</li>
+            <li>I understand that the purpose of this research is to investigate the validity and reliability of mental
+                workload
+                scales.</li>
+            <li>I understand that my participation in this project is for research purposes only.</li>
+            <li>I acknowledge that the possible effects of participating in this research project have been explained to
+                my
+                satisfaction.</li>
+            <li>In this project, I will be required to answer a questionnaire about my job, daily tasks and position,
+                which have
+                been explained to me.</li>
+            <li>&nbsp;In this project, I have to fill in mental workload scales multiple times.</li>
+            <li>I understand that my participation is voluntary and that I am free to withdraw from this project anytime
+                without
+                explanation or prejudice and to withdraw any unprocessed data that I have provided.&nbsp;</li>
+            <li>I understand that the data from this research will be stored at the University of Melbourne and will be
+                destroyed after 5 years after the date of the last publication.&nbsp;</li>
+            <li>I have been informed that the confidentiality of the information I provide will be safeguarded subject
+                to any
+                legal requirements; my data will be password protected and accessible only by the named researchers.
+            </li>
+            <li>I understand that after completing the tasks I will be asked to engage in a final interview with the
+                experimenter.</li>
+            <li>I understand that my decision to participate in this project will not affect my grades in the courses
+                taught or
+                related to any of the researchers involved in this project.</li>
+            <li>I understand that I can request publications arising from this research.</li>
+            <li>I understand that after I sign and return this consent form, it will be retained by the researcher.
+                &nbsp;</li>
+        </ol>
+        <p
+            style='margin-top:12.0pt;margin-right:0in;margin-bottom:12.0pt;margin-left:35.7pt;line-height:normal;font-size:16px;font-family:"Cambria",serif;'>
+            &nbsp;</p>
+
+    </div>
+    <div class="confirmation">
+        <form action="pls.php">
+            <input type="checkbox" id="consent_confirmation" name="consent_confirmation" value="True">
+            <label for="consent_confirmation" line-height="80px" font-size= "20px" width="100%"> <strong>I have read the consent form and accept all its conditions.</strong></label>
+            <input class="button" type="submit" value="Accept">
+            <input class="button" type="submit" value="Reject">
+          </form>
+    </div>
+</body>

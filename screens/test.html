@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <title>SAK Experiment</title>
+</head>
+
+<body>
+
+
+<label for="sak_presented_text">Presented Text</label>
+<textarea readonly id="sak_presented_text" name="sak_presented_text" class="sak_textarea" rows="2" cols="200">
+  At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+  </textarea>
+
+
+<label for="sak_transcribed_text">Transcribed Text</label>
+<textarea readonly id="sak_transcribed_text" name="sak_transcribed_text" class="sak_textarea" rows="2" cols="200">
+  At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+  </textarea>
+
+
+<div onload= "blinking()" style="width:'100%';" id="sak_buttons">
+    <div><button id="btn1" type="submit" class="sakBtn" onClick="return false;">ABCDEFGH</button></div>
+    <div><button id="btn2" type="submit" class="sakBtn" onClick="return false;">IJKLMNOP</button></div>
+    <div><button id="btn3" type="submit" class="sakBtn" onClick="return false;">QRSTUVWXYZ</button></div>
+    <div><button id="btn4" type="submit" class="sakBtn" onClick="return false;">[space]</button></div>
+</div>
+
+<label for="sak_currenty_keys">Currenty Keys</label>
+<textarea readonly id="sak_currenty_keys" name="sak_currenty_keys" class="sak_textarea" rows="2" cols="200">
+  At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+  </textarea>
+
+<label for="sak_candidate_words">Candidate Words</label>
+<textarea readonly id="sak_candidate_words" name="sak_candidate_words" class="sak_textarea" rows="8" cols="200">
+  At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+  </textarea>
+
+
+<script>
+  
+    /*var buttonGroupDiv = document.getElementById("btn1")
+    buttonGroupDiv.style.backgroundColor='Red'*/
+    var buttons = document.querySelectorAll('#sak_buttons button')
+    btn=buttons[0]
+    first_color = btn.style.backgroundColor
+    var flashing = true
+    var index_button =0
+ /*   while(flashing)
+    {
+      setTimeout(function(){ buttons[index_button].style.backgroundColor='Red'; 
+      setTimeout(function(){buttons[index_button].style.backgroundColor='Black';},1000 )}, 10);
+      buttons[index_button].style.backgroundColor = first_color
+      index_button= (index_button+1)%4
+
+    }
+*/
+counter = 0.1;
+
+while(true){
+for (x=0;x<4;x++){   
+     setColorSwitch(x, counter);
+     counter++;
+     if(x > 3){
+      x=0;
+     }
+}}
+
+
+function setColorSwitch(index_button,timing){
+    setTimeout(function(){
+        buttons[index_button].style.background = 'Red';
+        setTimeout(function(){buttons[index_button].style.background = first_color;
+        /*setColorSwitch(id, Object.keys(colouredboxes).length-1);*/}
+        ,1000)}
+    ,1000 * timing); 
+}
+
+</script>
+
+
+</body>
+</html>
