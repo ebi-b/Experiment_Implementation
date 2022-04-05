@@ -53,6 +53,7 @@
 </head>
 
 <body>
+    
     <div class="top-right">
         <img  src="images/unimelb-logo.jpg" alt="University of Melbourne Logo" >
 
@@ -211,12 +212,15 @@
             team or the name or ethics ID number of the research project.</p>
     </div>
     <div class="confirmation">
-        <form action="conset_form.php">
-            <input type="checkbox" id="pls_confirmation" name="plas_confirmation" value="True">
+        
+            <input type="checkbox" id="pls_confirmation" name="plas_confirmation" value="true">
             <label for="plas_confirmation" line-height="80px" font-size= "20px"> <strong>I have read the plain language statement.</strong></label>
-            <input class="button" type="submit" value="Submit">
-          </form>
+            <input class="button" onclick="onClickActions('pls_confirmation')" type="submit" value="Submit">
+          
     </div>
+    <script src="/js/pls.js"></script>
+
+
 </body>
 
 </html>

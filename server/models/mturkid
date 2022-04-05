@@ -1,0 +1,9 @@
+const { boolean } = require('joi');
+const mongoose = require('mongoose');
+
+  const MturkidSchema = new mongoose.Schema({
+    mturk_id: String,
+    used_before: Boolean
+  })
+
+  module.exports = mongoose.model('mturkidModel', MturkidSchema)

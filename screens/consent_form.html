@@ -149,11 +149,12 @@
 
     </div>
     <div class="confirmation">
-        <form action="pls.php">
+        
             <input type="checkbox" id="consent_confirmation" name="consent_confirmation" value="True">
             <label for="consent_confirmation" line-height="80px" font-size= "20px" width="100%"> <strong>I have read the consent form and accept all its conditions.</strong></label>
-            <input class="button" type="submit" value="Accept">
-            <input class="button" type="submit" value="Reject">
-          </form>
+            <input class="button" onclick="onClickActions('consent_confirmation')" type="submit" value="Accept">
+            <!-- <input class="button" type="submit" value="Reject"> -->
     </div>
+    <script src="/js/consentform.js"></script>
+
 </body>
