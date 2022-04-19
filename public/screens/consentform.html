@@ -51,15 +51,20 @@
             width: 100%;
         }
 
-        form { display: flex; }
-        input[type=text] { flex-grow: 1; }
+        form {
+            display: flex;
+        }
+
+        input[type=text] {
+            flex-grow: 1;
+        }
     </style>
     <title>Consent Form</title>
 </head>
 
 <body>
     <div class="top-right">
-        <img src="images/unimelb-logo.jpg" alt="University of Melbourne Logo">
+        <img src="img/unimelb-logo.jpg" alt="University of Melbourne Logo">
 
     </div>
     <div class="flex-container">
@@ -148,13 +153,16 @@
             &nbsp;</p>
 
     </div>
-    <div class="confirmation">
-        
-            <input type="checkbox" id="consent_confirmation" name="consent_confirmation" value="True">
-            <label for="consent_confirmation" line-height="80px" font-size= "20px" width="100%"> <strong>I have read the consent form and accept all its conditions.</strong></label>
-            <input class="button" onclick="onClickActions('consent_confirmation')" type="submit" value="Accept">
-            <!-- <input class="button" type="submit" value="Reject"> -->
+    <form action="http://localhost:3000/consentform" onsubmit="return onClickActions('consent_confirmation');" method="post">
+        <div class="confirmation">
+
+        <input type="checkbox" id="consent_confirmation" name="consent_confirmation" value="True">
+        <label for="consent_confirmation" line-height="80px" font-size="20px" width="100%"> <strong>I have read the
+                consent form and accept all its conditions.</strong></label>
+        <input class="button"  type="submit" value="Accept">
+        <!-- <input class="button" type="submit" value="Reject"> -->
     </div>
+    </form>
     <script src="/js/consentform.js"></script>
 
 </body>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baseline Video</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+
+  <style>
+    .container {
+      position: relative;
+      width: 100%;
+      /* max-width: 400px; */
+    }
+
+    .container video {
+      width: 100%;
+      height: auto;
+    }
+
+    .container .btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      color: white;
+      font-size: 32px;
+      padding: 12px 24px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+      width: 50%;
+      height: 20%;
+    }
+
+    .container .btn:hover {
+      background-color: firebrick;
+    }
+  </style>
+</head>
+
+
+<body onload="toggleControls()">
+  <div class="container">
+    <video controls id="baselinevideo" width="100%" left="0px" top="0px" autoplay="True" controls muted>
+      <source src="/video/baselinevideo.mp4" type="video/mp4">
+      <p>Your browser doesn't support HTML5 video. Here is
+        a <a href="/video/baselinevideo.mp4">link to the video</a> instead.</p>
+    </video>
+    <div id="proceed_btn">
+      <!-- <form action="http://localhost:3000/baseline" method="post">
+        <button class="btn" type="submit" onclick="clicked()">Proceed</button>
+      </form> -->
+    </div>
+  </div>
+  <script src="/js/videocontrols.js"></script>
+
+</body>
+
+</html>

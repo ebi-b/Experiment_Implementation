@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- <base href="/">  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Form</title>
+  <!-- <link rel="stylesheet" href="css/normalize.css"> -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body>
+  <form action="http://localhost:3000/welcome" method="post">
+
+    <h1>Welcome to Asessement of Mental Workload Scales online Experiment</h1>
+
+    <label for="MTurkID">Please insert your Amazon Mechanical Turk ID:</label>
+    <input type="text" id="MTurkID" name="mturkid">
+
+    <button type="submit">Submit</button>
+    <p style="color:crimson"> Error: Please insert a valid ID. This ID is not existed in our database or been used before.</p>
+  </form>
+</body>
+
+</html>
