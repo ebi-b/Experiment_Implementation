@@ -36,13 +36,13 @@ function submitButtionFunction() {
     wrong_value_alert = false
     for (bi = 0; bi < textfields.length; bi++) {
         value = textfields[bi].value;
-       
+
 
         if (value == "") {
             emptyfield_alert = true;
-        }else if (value == 0 || value == 1 || value == 2 || value == 3 || value == 4) {
+        } else if (value == 0 || value == 1 || value == 2 || value == 3 || value == 4) {
             mrq_values[bi] = value
-        }else {
+        } else {
             wrong_value_alert = true
 
 
@@ -53,12 +53,16 @@ function submitButtionFunction() {
     s = ""
     console.log(wrong_value_alert)
     if (emptyfield_alert)
-    s =s+ " Fill in all the boxes."
+        s = s + " Fill in all the boxes."
     if (wrong_value_alert)
-        s =s+ " The only accepted values are 0,1,2 and 3."
-  
+        s = s + " The only accepted values are 0,1,2 and 3."
+
     if (s != "")
         alert(s)
+
+    if (!emptyfield_alert && !wrong_value_alert)
+        return true
+    else return false
 }
 
 function updateValue(e) {

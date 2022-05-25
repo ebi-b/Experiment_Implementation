@@ -7,10 +7,12 @@ const cluster = 'cluster0.xyml4'
 const username = 'ebrahimbabaei92'
 const password = 'HTbMzZzU04rEw7rs'
 var path = require ('path');
+const { string } = require('joi');
 
 
 
-mongoose.connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority)`)
+
+mongoose.connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
   .then(() => console.log("Connected to DB"))
   .catch(console.error);
 
@@ -61,6 +63,14 @@ app.use('/baseline', baselinePageRoute)
 const startplayPageRoute = require('./server/routes/startplay');
 app.use('/startplay', startplayPageRoute)
 
+const sakPageRoute = require('./server/routes/sakexperiment');
+app.use('/sak', sakPageRoute)
+
+const mrqPageRoute = require('./server/routes/mrq');
+app.use('/mrq', mrqPageRoute)
+
+const nasatlxPageRoute = require('./server/routes/nasatlx.js');
+app.use('/nasatlx',nasatlxPageRoute)
 
 
 

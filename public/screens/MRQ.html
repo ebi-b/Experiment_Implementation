@@ -21,6 +21,7 @@
         .mrqtxtin {
             background-color: rgb(255, 255, 255);
         }
+
         /* input:valid{
             border: "5px solid green";
         }
@@ -41,186 +42,204 @@
 </head>
 
 <body onload="onload_actions()">
-    <p style="margin-left: 34px; width: 1275px; text-align: center;"><b>THE
-            MULTIPLE RESOURCES QUESTIONNAIRE (MRQ)</b></p>
-    <p style="margin-left: 34px; width: 1275px; text-align: center;"><b><span class="fontstyle0"></span><span
-                class="fontstyle0">______________________________________________________________________________________________________________________________________________________________</span></b>
-    </p>
-    <p style="margin-left: 48px; width: 1261px; text-align: left;"><span class="fontstyle0"><strong>MULTIPLE
-                RESOURCES QUESTIONNAIRE</strong> for task
-            _________________________&nbsp;</span></p>
-    <p style="margin-left: 48px; width: 1261px; text-align: justify;"><span class="fontstyle0">The
-            purpose of this questionnaire is to characterize the nature of the
-            mental processes used in the task with which you have become familiar.
-            Below are the names and descriptions of several mental processes. Please
-            read each carefully so that you understand the nature of the process.
-            Then rate the task on the extent to which it uses each process, using
-            the following scale.</span></p>
-    <div style="text-align: center;"><img src="\img\MRQ%20Scale.JPG" alt="MRQ Scale" title="mrqscale"
-            style="width: 348px; height: 96px;"></div>
-    <div style="text-align: left; margin-left: 41px; width: 1261px;"><strong>Important:
-            <br></strong></div>
-    <div style="text-align: left; margin-left: 42px; width: 1260px;"><strong></strong><br>
-        <div style="text-align: justify;"><strong>All </strong>parts of a process
-            definition should be satisfied for it to be judged as having been used.
-            For example, recognizing geometric figures presented visually should <strong>not
-            </strong>lead you to judge that the “Tactile figural” process was
-            used, just because figures were involved. For that process to be used,
-            figures would need to be processed tactilely (i.e., using the sense of
-            touch). Please judge the task as a <strong>whole</strong>, averaged
-            over the time you performed it. If a certain process was used at one
-            point in the task and not at another, your rating should <strong>not </strong>reflect
-            “peak usage” but should instead reflect <strong>average </strong>usage
-            over the entire length of the task.</div>
-    </div>
-    <div style="text-align: left; margin-left: 42px; width: 1260px;">
-        <b>_______________________________________________________________________________________________________________________________________________________________</b>
-    </div>
-    <div style="text-align: left; margin-left: 42px; width: 1260px;"><b><br>
-        </b></div>
-    <div id="divtablemrq" style="text-align: left; margin-left: 42px; width: 1260px;">
-        <table style="width: 1212px; height: 509px;" border="0">
-            <tbody>
-                <tr>
-                    <td style="height: 19.2px;"><b>Auditory emotional process </b>–
-                        Required judgments of emotion (e.g., tone of voice or musical
-                        mood) presented through the sense of hearing.</td>
-                    <td style="text-align: center; vertical-align: middle; background-color: white;">
-                        <input name="aep" id="aep" class="mrqtxtin" required="required" min="0" step="1" max="4"
-                            form="mrqform" type="number"> <span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="height: 19.2px;"><b>Auditory linguistic process – </b>Required
-                        recognition of words, syllables, or other verbal parts of speech
-                        presented through the sense of hearing.</td>
-                    <td style="text-align: center;"><input name="alp" id="alp" class="mrqtxtin" required="required"
-                            min="0" max="4" step="1" form="mrqform" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr style="height: 22.8px;">
-                    <td><b>Facial figural process</b> – Required recognition of faces,
-                        or of the emotions shown on faces, presented through the sense of
-                        vision.&nbsp;</td>
-                    <td style="text-align: center;"><input name="ffp" id="ffp" class="mrqtxtin" required="required"
-                            min="0" max="4" step="1" form="mrqform" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Facial motive process </b>– Required movement of your own
-                        face muscles, unconnected to speech or the expression of
-                        emotion.&nbsp;</td>
-                    <td style="text-align: center;"><input name="fmp" id="fmp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Manual process</b> – Required movement of the arms, hands,
-                        and/or fingers.&nbsp;</td>
-                    <td style="height: 19.2px; text-align: center;"><input name="mp" id="mp" class="mrqtxtin"
-                            form="mrqform" required="required" min="0" max="4" step="1" type="number"><span class="validity"></span></td>
-                </tr>
-                <tr>
-                    <td><b>Short-term memory process</b> – Required remembering of
-                        information for a period of time ranging from a couple of seconds
-                        to half a minute.&nbsp;</td>
-                    <td style="text-align: center;"><input name="stmp" id="stmp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Spatial attentive process</b> – Required focusing of
-                        attention on a location, using the sense of vision.&nbsp;</td>
-                    <td style="text-align: center;"><input name="sap" id="sap" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 959.45px;"><b>Spatial categorical process</b> –
-                        Required judgment of simple left-versus-right or up-versus down
-                        relationships, without consideration of precise location,using the
-                        sense of vision.&nbsp;</td>
-                    <td style="width: 233.75px; text-align: center;"><input name="scatp" id="scatp" class="mrqtxtin"
-                            form="mrqform" required="required" min="0" max="4" step="1" type="number"><span class="validity"></span></td>
-                </tr>
-                <tr>
-                    <td><b>Spatial concentrative process</b> – Required judgment of how
-                        tightly spaced are numerous visual objects or forms.&nbsp;</td>
-                    <td style="text-align: center;"><input name="sconp" id="sconp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Spatial emergent process</b> – Required “picking out” of a
-                        form or object from a highly cluttered or confusing background,
-                        using the sense of vision.&nbsp;</td>
-                    <td style="text-align: center;"><input name="sep" id="sep" form="mrqform" class="mrqtxtin"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Spatial positional process </b>— Required recognition of a
-                        precise location as differing from other locations, using the
-                        sense of vision.&nbsp;</td>
-                    <td style="text-align: center;"><input name="spp" id="spp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Spatial quantitative process</b> – Required judgment of
-                        numerical quantity based on a nonverbal, nondigital representation
-                        (for example, bar graphs or small clusters of items), using the
-                        sense of vision.&nbsp;</td>
-                    <td style="text-align: center;"><input name="sqp" id="sqp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Tactile figural process </b>– Required recognition or
-                        judgment of shapes (figures), using the sense of touch.&nbsp;</td>
-                    <td style="text-align: center;"><input name="tfp" id="tfp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Visual lexical process</b> – Required recognition of words,
-                        letters, or digits, using the sense of vision.&nbsp;</td>
-                    <td style="text-align: center;"><input name="vlp" id="vlp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Visual phonetic process</b> – Required detailed analysis of
-                        the sound of words, letters, or digits, presented using the sense
-                        of vision.&nbsp; </td>
-                    <td style="text-align: center;"><input name="vpp" id="vpp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Visual temporal process</b> – Required judgment of time
-                        intervals, or of the timing of events, using the sense of
-                        vision.&nbsp; </td>
-                    <td style="text-align: center;"><input name="vtp" id="vtp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b>Vocal process</b> – Required use of your voice. </td>
-                    <td style="text-align: center;"><input name="vp" id="vp" class="mrqtxtin" form="mrqform"
-                            required="required" min="0" max="4" step="1" type="number"><span class="validity"></span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <b><br>
-        </b>
-    </div>
-    <br>
-    <div style="width:800px; margin:0 auto;">
-        <button type="submit" onclick="submitButtionFunction()">Submit</button>
-    </div>
-    <script src="/js/mrq.js"></script>
+    <form action="http://localhost:3000/mrq" onsubmit="return submitButtionFunction();" method="post">
+        <p style="margin-left: 34px; width: 1275px; text-align: center;"><b>THE
+                MULTIPLE RESOURCES QUESTIONNAIRE (MRQ)</b></p>
+        <p style="margin-left: 34px; width: 1275px; text-align: center;"><b><span class="fontstyle0"></span><span
+                    class="fontstyle0">______________________________________________________________________________________________________________________________________________________________</span></b>
+        </p>
+        <p style="margin-left: 48px; width: 1261px; text-align: left;"><span class="fontstyle0"><strong>MULTIPLE
+                    RESOURCES QUESTIONNAIRE</strong> for task
+                _________________________&nbsp;</span></p>
+        <p style="margin-left: 48px; width: 1261px; text-align: justify;"><span class="fontstyle0">The
+                purpose of this questionnaire is to characterize the nature of the
+                mental processes used in the task with which you have become familiar.
+                Below are the names and descriptions of several mental processes. Please
+                read each carefully so that you understand the nature of the process.
+                Then rate the task on the extent to which it uses each process, using
+                the following scale.</span></p>
+        <div style="text-align: center;"><img src="\img\MRQ%20Scale.JPG" alt="MRQ Scale" title="mrqscale"
+                style="width: 348px; height: 96px;"></div>
+        <div style="text-align: left; margin-left: 41px; width: 1261px;"><strong>Important:
+                <br></strong></div>
+        <div style="text-align: left; margin-left: 42px; width: 1260px;"><strong></strong><br>
+            <div style="text-align: justify;"><strong>All </strong>parts of a process
+                definition should be satisfied for it to be judged as having been used.
+                For example, recognizing geometric figures presented visually should <strong>not
+                </strong>lead you to judge that the “Tactile figural” process was
+                used, just because figures were involved. For that process to be used,
+                figures would need to be processed tactilely (i.e., using the sense of
+                touch). Please judge the task as a <strong>whole</strong>, averaged
+                over the time you performed it. If a certain process was used at one
+                point in the task and not at another, your rating should <strong>not </strong>reflect
+                “peak usage” but should instead reflect <strong>average </strong>usage
+                over the entire length of the task.</div>
+        </div>
+        <div style="text-align: left; margin-left: 42px; width: 1260px;">
+            <b>_______________________________________________________________________________________________________________________________________________________________</b>
+        </div>
+        <div style="text-align: left; margin-left: 42px; width: 1260px;"><b><br>
+            </b></div>
+        <div id="divtablemrq" style="text-align: left; margin-left: 42px; width: 1260px;">
+            <table style="width: 1212px; height: 509px;" border="0">
+                <tbody>
+                    <tr>
+                        <td style="height: 19.2px;"><b>Auditory emotional process </b>–
+                            Required judgments of emotion (e.g., tone of voice or musical
+                            mood) presented through the sense of hearing.</td>
+                        <td style="text-align: center; vertical-align: middle; background-color: white;">
+                            <input name="aep" id="aep" class="mrqtxtin" required="required" min="0" step="1" max="4"
+                                type="number"> <span class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 19.2px;"><b>Auditory linguistic process – </b>Required
+                            recognition of words, syllables, or other verbal parts of speech
+                            presented through the sense of hearing.</td>
+                        <td style="text-align: center;"><input name="alp" id="alp" class="mrqtxtin" required="required"
+                                min="0" max="4" step="1" type="number"><span class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr style="height: 22.8px;">
+                        <td><b>Facial figural process</b> – Required recognition of faces,
+                            or of the emotions shown on faces, presented through the sense of
+                            vision.&nbsp;</td>
+                        <td style="text-align: center;"><input name="ffp" id="ffp" class="mrqtxtin" required="required"
+                                min="0" max="4" step="1"  type="number"><span class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Facial motive process </b>– Required movement of your own
+                            face muscles, unconnected to speech or the expression of
+                            emotion.&nbsp;</td>
+                        <td style="text-align: center;"><input name="fmp" id="fmp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Manual process</b> – Required movement of the arms, hands,
+                            and/or fingers.&nbsp;</td>
+                        <td style="height: 19.2px; text-align: center;"><input name="mp" id="mp" class="mrqtxtin"
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Short-term memory process</b> – Required remembering of
+                            information for a period of time ranging from a couple of seconds
+                            to half a minute.&nbsp;</td>
+                        <td style="text-align: center;"><input name="stmp" id="stmp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Spatial attentive process</b> – Required focusing of
+                            attention on a location, using the sense of vision.&nbsp;</td>
+                        <td style="text-align: center;"><input name="sap" id="sap" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 959.45px;"><b>Spatial categorical process</b> –
+                            Required judgment of simple left-versus-right or up-versus down
+                            relationships, without consideration of precise location,using the
+                            sense of vision.&nbsp;</td>
+                        <td style="width: 233.75px; text-align: center;"><input name="scatp" id="scatp" class="mrqtxtin"
+                                 required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Spatial concentrative process</b> – Required judgment of how
+                            tightly spaced are numerous visual objects or forms.&nbsp;</td>
+                        <td style="text-align: center;"><input name="sconp" id="sconp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Spatial emergent process</b> – Required “picking out” of a
+                            form or object from a highly cluttered or confusing background,
+                            using the sense of vision.&nbsp;</td>
+                        <td style="text-align: center;"><input name="sep" id="sep"  class="mrqtxtin"
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Spatial positional process </b>— Required recognition of a
+                            precise location as differing from other locations, using the
+                            sense of vision.&nbsp;</td>
+                        <td style="text-align: center;"><input name="spp" id="spp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Spatial quantitative process</b> – Required judgment of
+                            numerical quantity based on a nonverbal, nondigital representation
+                            (for example, bar graphs or small clusters of items), using the
+                            sense of vision.&nbsp;</td>
+                        <td style="text-align: center;"><input name="sqp" id="sqp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Tactile figural process </b>– Required recognition or
+                            judgment of shapes (figures), using the sense of touch.&nbsp;</td>
+                        <td style="text-align: center;"><input name="tfp" id="tfp" class="mrqtxtin"
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Visual lexical process</b> – Required recognition of words,
+                            letters, or digits, using the sense of vision.&nbsp;</td>
+                        <td style="text-align: center;"><input name="vlp" id="vlp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Visual phonetic process</b> – Required detailed analysis of
+                            the sound of words, letters, or digits, presented using the sense
+                            of vision.&nbsp; </td>
+                        <td style="text-align: center;"><input name="vpp" id="vpp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Visual temporal process</b> – Required judgment of time
+                            intervals, or of the timing of events, using the sense of
+                            vision.&nbsp; </td>
+                        <td style="text-align: center;"><input name="vtp" id="vtp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Vocal process</b> – Required use of your voice. </td>
+                        <td style="text-align: center;"><input name="vp" id="vp" class="mrqtxtin" 
+                                required="required" min="0" max="4" step="1" type="number"><span
+                                class="validity"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <b><br>
+            </b>
+        </div>
+        <br>
+
+        <div style="width:800px; margin:0 auto;">
+
+            <button type="submit">Submit</button>
+        </div>
+        <script src="/js/mrq.js"></script>
+    </form>
 </body>
 
 </html>

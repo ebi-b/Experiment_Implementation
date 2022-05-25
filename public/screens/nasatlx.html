@@ -1,0 +1,128 @@
+<html>
+
+<head>
+	
+	<title>NASA Task Load Index</title>
+
+
+	 <link rel="stylesheet" href="/styles/main.css">
+	 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	 <link rel="stylesheet" href="/styles/pls.css">
+	<style>
+		td.bottom {
+			width: 0.6cm;
+			height: 0.4cm;
+			border-bottom: 1px solid black;
+			border-left: 1px solid black;
+			border-right: 1px solid black;
+			margin: 0px;
+			padding: 0px 0px 0px 0px;
+
+		}
+
+		table.scale {
+			margin: 0px;
+			padding: 0px 0px 0px 0px;
+			border-collapse: collapse
+		}
+
+		td.top1 {
+			width: 0.6cm;
+			height: 0.4cm;
+			border-top: 1px solid black;
+			border-left: 1px solid black;
+			margin: 0px;
+			padding: 0px 0px 0px 0px;
+		}
+
+		td.top2 {
+			width: 0.6cm;
+			height: 0.4cm;
+			border-top: 1px solid black;
+			border-right: 1px solid black;
+			margin: 0px;
+			padding: 0px 0px 0px 0px;
+		}
+
+		td.heading {
+			font: Bold 14px Arial, Helvetica, sans-serif;
+			text-align: center;
+		}
+
+		td.left {
+			font: 14px Arial, Helvetica, sans-serif;
+		}
+
+		td.right {
+			font: 14px Arial, Helvetica, sans-serif;
+			text-align: right;
+		}
+
+		td.def {
+			width: 12cm;
+			padding: 0px 0px 0px 20px;
+			font: 12px Arial, Helvetica, sans-serif;
+		}
+
+		input.pair {
+			width: 5cm;
+			height: 1cm;
+			font: Bold 14px Arial, Helvetica, sans-serif;
+		}
+	</style>
+</head>
+
+<body onLoad="onLoad();">
+	<div id="div_part1">
+		Task Questionnaire - Part 1 <br />
+		<br />
+		Click on each scale at the point that best indicates your experience of the task <br />
+		<br />
+		<div id="scale0"></div>
+		<div id="scale1"></div>
+		<div id="scale2"></div>
+		<div id="scale3"></div>
+		<div id="scale4"></div>
+		<div id="scale5"></div>
+		<br />
+		<input class="next" id="next" type="button" value="Continue >>" onClick="buttonPart1();">
+	</div>
+	<div id="div_part2" style="display:none">
+		Task Questionnaire - Part 2 <br />
+		<br />
+		One each of the following 15 screens, click on the scale title that represents the
+		more important contributor to workload for the task <br />
+		<br />
+		<input class="next" id="next" type="button" value="Continue >>" onClick="buttonPart2();">
+	</div>
+	<div id="div_part3" style="display:none">
+		Task Questionnaire - Part 2 <br />
+		<br />
+		Click on the factor that represents the more important contributor to workload for the task<br />
+		<br />
+		<table>
+			<tr>
+				<td><input class="pair" id="pair1" type="button" value="" onClick="buttonPair1();"> </td>
+				<td class="def">
+					<div id="pair1_def"></div>
+				</td>
+			</tr>
+			<tr>
+				<td align="center"> or </td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><input class="pair" id="pair2" type="button" value="" onClick="buttonPair2();"></td>
+				<td class="def">
+					<div id="pair2_def"></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="div_part4" style="display:none">
+	</div>
+
+	<script src="/js/nasatlx.js"></script>
+</body>
+
+</html>

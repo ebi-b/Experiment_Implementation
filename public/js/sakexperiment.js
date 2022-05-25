@@ -12,7 +12,13 @@ let codes = []
 let selectwordsphase = false;
 let activated_word = "";
 let selected_words = []
-
+let presented_text = ""
+const phrase_count_limit = 1
+let phrase_count = 0
+delay_time = 500
+let actions = []
+let actions_t=[]
+const sak_page_url= 'http://localhost:3000/sak'
 
 
 async function onload_actions() {
@@ -43,17 +49,25 @@ function keypress_management() {
       //console.log('Space released'); //whatever you want to do when space is pressed
       //long press is set on 1 for now
       if (repeat_number > 0) {
+        actions.push("clearing")
+        actions_t.push(Date.now())
         choosen_button_numbers = [];
-        update_currenty_key(true);
+        let is_currenty_key_empty = update_currenty_key(true);
         update_candidate_words(true);
-        update_transcribed_text(true);
+        if (is_currenty_key_empty) update_transcribed_text(true);
+        selectwordsphase = false
       }
       if (repeat_number == 0 && !selectwordsphase) {
         if (activated_button_number == 3) {
-          if(choosen_button_numbers.length>0){
-          selectwordsphase = true;
-          console.log("word select is activated");}
+          actions.push(3)
+          actions_t.push(Date.now())
+          if (choosen_button_numbers.length > 0) {
+            selectwordsphase = true;
+            console.log("word select is activated");
+          }
         } else {
+          actions.push(activated_button_number)
+          actions_t.push(Date.now())
           choosen_button_numbers.push(activated_button_number);
           update_currenty_key(false);
           update_candidate_words(false);
@@ -61,10 +75,16 @@ function keypress_management() {
       } else if (repeat_number == 0 && selectwordsphase) {
         console.log("in selecting mode")
         update_transcribed_text(false)
+        choosen_button_numbers = [];
       }
 
       repeat_number = 0
       //console.log("repeat number is updated" + repeat_number)
+      console.log(choosen_button_numbers)
+    }
+    else {
+      actions.push(event.code)
+      actions_t.push(Date.now())
     }
   })
 }
@@ -79,19 +99,19 @@ async function blinking() {
   while (!selectwordsphase) {
     activated_button_number = 0;
     document.getElementById("btn1").style.backgroundColor = 'red'
-    await delay(1000);
+    await delay(delay_time);
     activated_button_number = 1;
     document.getElementById("btn1").style.backgroundColor = first_color
     document.getElementById("btn2").style.backgroundColor = 'red'
-    await delay(1000);
+    await delay(delay_time);
     activated_button_number = 2;
     document.getElementById("btn2").style.backgroundColor = first_color
     document.getElementById("btn3").style.backgroundColor = 'red'
-    await delay(1000);
+    await delay(delay_time);
     activated_button_number = 3;
     document.getElementById("btn3").style.backgroundColor = first_color
     document.getElementById("btn4").style.backgroundColor = 'red'
-    await delay(1000);
+    await delay(delay_time);
     document.getElementById("btn4").style.backgroundColor = first_color
   }
   if (selectwordsphase) {
@@ -114,11 +134,14 @@ async function blinking() {
       //console.log(ij);
       activated_word = candididate_words_in_box[ij];
       if (selectwordsphase) {
-        document.getElementById(candididate_words_in_box[ij]).style.backgroundColor = 'red'
-        await delay(1000);
+        if (document.getElementById(candididate_words_in_box[ij])) {
+          document.getElementById(candididate_words_in_box[ij]).style.backgroundColor = 'red'
+          await delay(delay_time);
+        }
       }
       if (selectwordsphase)
-        document.getElementById(candididate_words_in_box[ij]).style.backgroundColor = first_color
+        if (document.getElementById(candididate_words_in_box[ij]))
+          document.getElementById(candididate_words_in_box[ij]).style.backgroundColor = first_color
     }
   }
   blinking()
@@ -136,6 +159,10 @@ async function readTextFile() {
     //presenting a transcribed text
     random_number = Math.floor(Math.random() * (lines.length - 1))
     document.getElementById("sak_presented_text").value = lines[random_number]
+    presented_text = lines[random_number];
+    actions.push(presented_text)
+    actions_t.push(Date.now())
+
 
   } catch (err) {
     console.log(err); // 👉️ "Something went wrong"
@@ -226,12 +253,25 @@ function update_currenty_key(IsClearing) {
   if (IsClearing) {
     currenty_key_text = ''
 
+    if (document.getElementById("sak_currenty_keys").value == "")
+      return true
+    else {
+      document.getElementById("sak_currenty_keys").value = currenty_key_text;
+      return false
+    }
   }
-  document.getElementById("sak_currenty_keys").value = currenty_key_text;
+  else {
+    document.getElementById("sak_currenty_keys").value = currenty_key_text;
+    return false
+  }
+
+
 }
 
 function update_candidate_words(isClearing) {
   var candidate_count = 0;
+  let candidate_temp_words = [];
+  let candidate_temp_words_freq = [];
   document.getElementById("sak_candidate_buttons").innerHTML = "";
   //appendButton("Please");
 
@@ -241,64 +281,146 @@ function update_candidate_words(isClearing) {
     while ((!endofdic) && (!isEnough)) {
       candidate_count = 0;
       for (dicindex = 0; dicindex < freqs.length && !isEnough; dicindex++) {
-        if (isACandidate(codes[dicindex])) {
+        if (isACandidate(codes[dicindex], 1)) {
           candidate_count++
-          appendButton(words[dicindex])
-          if (candidate_count >= candidate_word_number)
-            isEnough = true;
+          candidate_temp_words.push(words[dicindex])
+          candidate_temp_words_freq.push(freqs[dicindex])
+        }
+      }
+
+      if (candidate_count < candidate_word_number) {
+        for (dicindex = 0; dicindex < freqs.length && !isEnough; dicindex++) {
+          if (isACandidate(codes[dicindex], 0) && !isACandidate(codes[dicindex], 1)) {
+            candidate_count++
+            candidate_temp_words.push(words[dicindex])
+            candidate_temp_words_freq.push(freqs[dicindex])
+            if (candidate_count >= candidate_word_number)
+              isEnough = true
+          }
+        }
+      }
+
+      if (candidate_temp_words)
+        for (t = 0; t < candidate_temp_words_freq.length; t++) {
+          let maxIndex = candidate_temp_words_freq.indexOf(Math.max(...candidate_temp_words_freq));
+          appendButton(candidate_temp_words[maxIndex])
+          candidate_temp_words_freq[maxIndex] = -1;
+
         }
 
-      }
+      // if (candidate_count >= candidate_word_number) {
+      //   // isEnough = true;
+      //   if (isACandidate(codes[dicindex], 1)) {
+      //     candidate_count++
+      //     candidate_temp_words.push(words[dicindex])
+      //     candidate_temp_words_freq.push(freqs[dicindex])
+      //     //appendButton(words[dicindex]);
+      //   }
+
+      // }
+      // if (candidate_count < candidate_word_number) {
+      //   if (isACandidate(codes[dicindex], 0)) {
+      //     candidate_count++
+      //     candidate_temp_words.push(words[dicindex])
+      //     candidate_temp_words_freq.push(freqs[dicindex])
+      //    // appendButton(words[dicindex])
+      //   }
+      // }
+
+
       endofdic = true;
     }
 
-  }
-  if (candidate_count == 0) {
-    update_currenty_key(true)
-    choosen_button_numbers = []
 
-  }
 
+    if (candidate_count == 0) {
+      update_currenty_key(true)
+      choosen_button_numbers = []
+
+    }
+  }
 }
 
+
 async function update_transcribed_text(isClearing) {
-  
+
   if (isClearing && selected_words.length != 0) {
     //console.log("in update transcribed text");
+    actions.push('clearing')
+    actions_t.push(Date.now())
     selected_words.pop();
     await selected_words;
     present_transcribed_text();
   }
   else if (!isClearing) {
-
+    actions.push(activated_word)
+    actions_t.push(Date.now())
     selected_words.push(activated_word);
     selectwordsphase = false;
     present_transcribed_text();
     update_currenty_key(true);
     update_candidate_words(true);
 
+
   }
 }
 function present_transcribed_text() {
-  
-  console.log("in present tr text--  "+selected_words);
-  str="";
-  if(selected_words.length>0){
-  str = selected_words[0]
-  for (i = 1; i < selected_words.length; i++) {
-    str = str + " " + selected_words[i];
+
+  console.log("in present tr text--  " + selected_words);
+  let str = "";
+  if (selected_words.length > 0) {
+    str = selected_words[0]
+    for (i = 1; i < selected_words.length; i++) {
+      str = str + " " + selected_words[i];
+    }
+  }
+  let presented_text_array = presented_text.split(" ")
+  document.getElementById("sak_transcribed_text").value = str;
+  // console.log("---" + str + "----")
+  // console.log(typeof (str))
+  // console.log(typeof (presented_text))
+  // console.log("---" + presented_text_array + "----")
+  // console.log(String(presented_text.replace(/\s+/g, "")) ===
+  //   String(str.replace(/\s+/g, "")))
+  // if (selected_words.length == presented_text_array.length) {
+  //   console.log("length are equal")
+  //   for(ii =0; ii<selected_words.length;ii++)
+  //   {
+  //     if(selected_words[ii]==presented_text_array[ii])
+  //     console.log("TE"+ii)
+  //     else
+  //     console.log(`----${selected_words[ii]}-----${presented_text_array[ii]}----`)
+  //   }
+
+  if (String(presented_text.replace(/\s+/g, "")) ===
+    String(str.replace(/\s+/g, ""))) {
+    console.log("Equal")
+    phrase_count++;
+
+    if (phrase_count < phrase_count_limit) {
+      selected_words = [];
+      present_transcribed_text();
+      set_presented_text();
+    }
+    else {
+      end_sakeExpriment()
+    }
   }
 }
-  document.getElementById("sak_transcribed_text").value = str;
-}
 
-function isACandidate(code) {
+function isACandidate(code, mode) {
   if (choosen_button_numbers.length > code.length) { return false } else {
     for (i = 0; i < choosen_button_numbers.length; i++) {
       if (choosen_button_numbers[i] != code[i])
         return false
     }
-    return true
+    if (mode == 0)
+      return true
+    else if (mode == 1) {
+      if (choosen_button_numbers.length == code.length) return true;
+      else return false;
+    }
+
   }
 }
 
@@ -311,3 +433,30 @@ function appendButton(button_text) {
   //<div><button id="btn1" type="submit" class="sakBtn2" onClick="return false;">ABCDEFGH</button></div>
 }
 
+function end_sakeExpriment() {
+  const data ={
+    "actions" : actions,
+    "timestamps" : actions_t
+  }
+  fetch(sak_page_url, {
+        method: 'POST', // or 'PUT'
+        redirect: 'follow',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            }
+        }
+        )
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+  // document.getElementById("body_div").innerHTML =
+  //   `<form action="http://localhost:3000/sak" method="post">
+  //     <button class="btn" type="submit" onclick="clicked()">Proceed</button>
+  //   </form>`
+}

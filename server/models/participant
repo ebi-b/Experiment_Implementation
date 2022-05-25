@@ -1,0 +1,181 @@
+const { boolean } = require('joi');
+const mongoose = require('mongoose');
+
+const ParticipantSchema = new mongoose.Schema({
+
+  mturk_id: { type: String, required: true },
+  sequence_type: { type: Number, required: true },
+  progress: { type: Number, required: true },
+  nbackn_1: { type: Array, required: true },
+  nbackn_2: { type: Array, required: true },
+  sak_1: { type: Array, required: true },
+  sak_2: { type: Array, required: true },
+  nasa_1_r: { type: Array, required: true },
+  nasa_2_r: { type: Array, required: true },
+  nasa_1_t: { type: Array, required: true },
+  nasa_2_t: { type: Array, required: true },
+  mrq_1: { type: Array, required: true },
+  mrq_2: { type: Array, required: true },
+
+
+
+  t_video_started: { type: Date },
+  t_video_ended: { type: Date },
+
+  t_nbackn_1_started: { type: Date },
+  t_nbackn_1_ended: { type: Date },
+  t_sak_1_started: { type: Date },
+  t_sak_1_ended: { type: Date },
+  t_nasa_1_started: { type: Date },
+  t_nasa_1_ended: { type: Date },
+  t_mrq_1_started: { type: Date },
+  t_mrq_1_ended: { type: Date },
+
+  t_nbackn_2_started: { type: Date },
+  t_nbackn_2_ended: { type: Date },
+  t_sak_2_started: { type: Date },
+  t_sak_2_ended: { type: Date },
+  t_nasa_2_started: { type: Date },
+  t_nasa_2_ended: { type: Date },
+  t_mrq_2_started: { type: Date },
+  t_mrq_2_ended: { type: Date },
+
+
+  sak_1_actions: { type: Array },
+  sak_2_actions: { type: Array },
+  sak_1_actions_t: { type: Array },
+  sak_2_actions_t: { type: Array }
+
+
+
+});
+
+module.exports = mongoose.model('ParticipantModel', ParticipantSchema)
+
+/* ----------------Experiment Sequences---------------------------
+N : first nbackn difficulty (H/E)
+Q : first Questionaire (1: NASA-TLX and 2: MRQ)
+S : SakeDifficulty(H/E)
+_________________________________________________________________
+seq_number | 1.n1 | 2.s | 3.q1| 4.q2|5.n2 | 6.s |7.q1 |8.q2 |
+_________________________________________________________________
+1          |  E   | E   |  1  |  2  |  H  |  E  |  1  |  2  |
+2          |  E   | E   |  2  |  1  |  H  |  E  |  2  |  1  |
+3          |  H   | E   |  1  |  2  |  E  |  E  |  1  |  2  |
+4          |  H   | E   |  2  |  1  |  E  |  E  |  2  |  1  |
+5          |  E   | H   |  1  |  2  |  H  |  H  |  1  |  2  |
+6          |  E   | H   |  2  |  1  |  H  |  H  |  2  |  1  |
+7          |  H   | H   |  1  |  2  |  E  |  H  |  1  |  2  |
+8          |  H   | H   |  2  |  1  |  E  |  H  |  2  |  1  |
+__________________________________________________________________
+------------------------------------------------------------------*/
+
+
+
+
+/*nbackn1:
+  { 
+    n: { type: Number},
+    stack_lenght: { type: Number},
+    v_hits: { type: Number},
+    v_mis: { type: Number},
+    v_wrong: { type: Number},
+    l_hit: { type: Number},
+    l_miss: { type: Number},
+    l_wrong: { type: Number}
+  },
+
+  
+nbackn2:
+{ 
+  n: { type: Number}, required: true,
+  stack_lenght: { type: Number, required: true},
+  v_hits: { type: Number, required: true},
+  v_mis: { type: Number, required: true},
+  v_wrong: { type: Number, required: true},
+  l_hit: { type: Number, required: true},
+  l_miss: { type: Number, required: true},
+  l_wrong: { type: Number, required: true}
+},
+
+NASA1:{
+    md: { type: Number, required: true},
+    pd: { type: Number, required: true},
+    td: { type: Number, required: true},
+    p: { type: Number, required: true},
+    e: { type: Number, required: true},
+    f: { type: Number, required: true}
+
+},
+NASA2:{
+    md: { type: Array, required: true},
+    pd: { type: Number, required: true},
+    td: { type: Number, required: true},
+    p: { type: Number, required: true},
+    e: { type: Number, required: true},
+    f: { type: Number, required: true}
+},
+
+MRQ1:{
+    md: { type: Number, required: true},
+    pd: { type: Number, required: true},
+    td: { type: Number, required: true},
+    p: { type: Number, required: true},
+    e: { type: Number, required: true},
+    f: { type: Number, required: true}
+
+},
+
+MRQ2:{
+    aep: { type: Number, required: true},
+    alp: { type: Number, required: true},
+    ffp: { type: Number, required: true},
+    fmp: { type: Number, required: true},
+    e: { type: Number, required: true},
+    f: { type: Number, required: true},
+    md: { type: Number, required: true},
+    pd: { type: Number, required: true},
+    td: { type: Number, required: true},
+    p: { type: Number, required: true},
+    e: { type: Number, required: true},
+    f: { type: Number, required: true},
+    md: { type: Number, required: true},
+    pd: { type: Number, required: true},
+    td: { type: Number, required: true},
+    p: { type: Number, required: true},
+    e: { type: Number, required: true},
+    f: { type: Number, required: true}
+ 
+aep_value = 0
+alp_value = 0
+ffp_value = 0
+fmp_value = 0
+mp_value = 0
+stmp_value = 0
+sap_value = 0
+scatp_value = 0
+sconp_value = 0
+sep_value = 0
+spp_value = 0
+sqp_value = 0
+tfp_value = 0
+vlp_value = 0
+vpp_value = 0
+vtp_value = 0
+vp_value = 0 */
+
+
+
+
+
+
+
+
+/*n: N_post,
+stack_lenght: N_plus,
+v_hits : vis_hits,
+v_mis :vis_misses,
+v_wrong : vis_wrong,
+l_hit : letter_hits,
+l_miss : letter_misses,
+l_wrong : letter_wrong*/
