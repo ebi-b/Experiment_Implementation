@@ -8,6 +8,7 @@ var right = new Array();
 var def = new Array();
 var NUM_SCALES = 6;
 let srv_url ='http://localhost:3000/nasatlx';
+let selected_in_pairs=[]
 
 scale[0] = "Mental Demand";
 left[0] = "Low";
@@ -210,7 +211,7 @@ function buttonPair1() {
     var indexes = new Array();
     indexes = pair[pair_num].split(" ");
     results_tally[indexes[0]]++;
-
+selected_in_pairs.push(0);
     nextPair();
     return true;
 }
@@ -222,6 +223,7 @@ function buttonPair2() {
     var indexes = new Array();
     indexes = pair[pair_num].split(" ");
     results_tally[indexes[1]]++;
+    selected_in_pairs.push(1);
     nextPair();
     return true;
 }
@@ -286,7 +288,8 @@ function nextPair() {
         calcResults();
         let _data = {
             rates: results_rating,
-            tally: results_tally
+            tally: results_tally,
+            pairs: selected_in_pairs
           }
           console.log("INJAM")
         fetch(srv_url, {

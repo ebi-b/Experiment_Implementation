@@ -52,9 +52,10 @@ router.get('/', async (req, res) => {
                 progress = participant[0].progress
                 console.log(`seq is ${sequence_type} and progress is ${progress}`)
                 if (progress <= 4)
-                    participant.t_mrq_1_started = Date.now();
+                    participant[0].t_mrq_1_started = Date.now();
                 else
-                    participant.t_mrq_2_started = Date.now();
+                    participant[0].t_mrq_2_started = Date.now();
+                await participant[0].save();
                 res.render('mrq')
 
 
@@ -116,7 +117,7 @@ router.post('/', async (req, res) => {
         if (!tmp) {
             console.log("invalid participant in mrq")
         } else {
-            if (tmp.progrsess <= 4) {
+            if (tmp.progress <= 4) {
                 tmp.mrq_1 = JSON.stringify(mrq_arr)
                 tmp.progress = tmp.progress + 1
                 tmp.t_mrq_1_ended = Date.now();

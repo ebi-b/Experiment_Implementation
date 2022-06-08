@@ -16,6 +16,8 @@ const ParticipantSchema = new mongoose.Schema({
   nasa_2_t: { type: Array, required: true },
   mrq_1: { type: Array, required: true },
   mrq_2: { type: Array, required: true },
+  nasa_1_pairs: { type: Array, required: true },
+  nasa_2_pairs: { type: Array, required: true },
 
 
 

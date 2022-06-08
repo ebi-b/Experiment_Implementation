@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 // });
 router.post('/', (req, res) => {
     //console.log("reached the page");
-    res.redirect(`/baseline?mturkid=${mturk_id}`)
+    res.redirect(`/tutorial1?mturkid=${mturk_id}`)
     //res.send(req.body)
     //res.redirect("https://github.com/pugjs/pug/issues/1355")
     //res.redirect('/welcome');

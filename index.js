@@ -72,6 +72,17 @@ app.use('/mrq', mrqPageRoute)
 const nasatlxPageRoute = require('./server/routes/nasatlx.js');
 app.use('/nasatlx',nasatlxPageRoute)
 
+const tutorial1PageRoute = require('./server/routes/tutorial1.js');
+app.use('/tutorial1',tutorial1PageRoute)
+
+const tutorial2PageRoute = require('./server/routes/tutorial2.js');
+app.use('/tutorial2',tutorial2PageRoute)
+
+const startExperimentPageRoute = require('./server/routes/startexperiment.js');
+app.use('/startexperiment',startExperimentPageRoute)
+
+
+
 
 
 const port = process.env.PORT || 3000;

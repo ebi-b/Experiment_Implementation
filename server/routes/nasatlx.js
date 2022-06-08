@@ -52,10 +52,12 @@ router.get('/', async (req, res) => {
                 progress = participant[0].progress
                 console.log(`seq is ${sequence_type} and progress is ${progress}`)
                 if (progress <= 4)
-                    participant.t_mrq_1_started = Date.now();
+                    participant[0].t_nasa_1_started = Date.now();
                 else
-                    participant.t_mrq_2_started = Date.now();
-                res.render('nasatlx')
+                    participant[0].t_nasa_2_started = Date.now();
+
+                participant[0].save();
+                res.render('nasatlx');
 
 
 
@@ -70,7 +72,7 @@ router.get('/', async (req, res) => {
 
 
 router.post('/', async (req, res) => {
-console.log("RESID")
+    console.log("RESID")
     console.log(req.body.tally)
     console.log(req.body.rates)
 
@@ -120,26 +122,28 @@ console.log("RESID")
             console.log("invalid participant in nasa")
         } else {
             if (tmp.progress <= 4) {
-                tmp.nasa_1_r = JSON.stringify(req.body.rates)
-                tmp.nasa_1_t = JSON.stringify(req.body.tally)
-                tmp.progress = tmp.progress + 1
+                tmp.nasa_1_r = JSON.stringify(req.body.rates);
+                tmp.nasa_1_t = JSON.stringify(req.body.tally);
+                tmp.nasa_1_pairs = JSON.stringify(req.body.pairs);
+                tmp.progress = tmp.progress + 1;
                 tmp.t_nasa_1_ended = Date.now();
-                await tmp.save()
-                if(tmp.progress == 4)
-                res.redirect(`/startplay?mturkid=${mturk_id}`)
-                else  if(tmp.progress == 3)
-                res.redirect(`/mrq?mturkid=${mturk_id}`)
+                await tmp.save();
+                if (tmp.progress == 4)
+                    res.redirect(`/startplay?mturkid=${mturk_id}`);
+                else if (tmp.progress == 3)
+                    res.redirect(`/mrq?mturkid=${mturk_id}`);
             }
             else if ((tmp.progress > 4)) {
-                tmp.nasa_2_r = JSON.stringify(req.body.rates)
-                tmp.nasa_2_t = JSON.stringify(req.body.tally)
-                tmp.progress = tmp.progress + 1
+                tmp.nasa_2_r = JSON.stringify(req.body.rates);
+                tmp.nasa_2_t = JSON.stringify(req.body.tally);
+                tmp.progress = tmp.progress + 1;
                 tmp.t_nasa_2_ended = Date.now();
+                tmp.nasa_2_pairs = JSON.stringify(req.body.pairs);
                 await tmp.save()
-                if(tmp.progress == 7)
-                res.redirect(`/mrq?mturkid=${mturk_id}`)
-                else  if(tmp.progress == 8)
-                res.redirect(`/completed?mturkid=${mturk_id}`)
+                if (tmp.progress == 7)
+                    res.redirect(`/mrq?mturkid=${mturk_id}`)
+                else if (tmp.progress == 8)
+                    res.redirect(`/completed?mturkid=${mturk_id}`)
             }
         }
 
@@ -149,7 +153,7 @@ console.log("RESID")
     catch (error) {
         console.log("Error in Updating Progress:  " + error)
     }
-   
+
 })
 
 

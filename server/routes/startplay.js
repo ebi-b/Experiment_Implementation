@@ -5,8 +5,8 @@ let nbackn_difficulty_level = 0;
 const ParticipantModel = require('../models/participant')
 let sequence_type = 0
 let progress = 0
-
-
+let isTrial = true
+let repeated = false
 
 /************* Progress Sequence Block *************/
 const E_n = 1
@@ -28,7 +28,7 @@ const seq_prog = [
 
 
 router.get('/', async (req, res) => {
-
+    isTrial = false
     // res.send(JSON.stringify({n:5}))
     mturk_id = req.query.mturkid;
     //send N (difficulty level) to the client
@@ -68,93 +68,148 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/diflevel', (req, res) => {
-    res.send(JSON.stringify({ n: seq_prog[sequence_type - 1][progress] }));
+    if (isTrial)
+        res.send(JSON.stringify({ n: 2 }));
+    else
+        res.send(JSON.stringify({ n: seq_prog[sequence_type - 1][progress] }));
 
 
 })
 
-
-// router.post('/nbackndone', async (req, res) => {
-//     //console.log("in this router")
-
-//     try {
-//         //     /* Read from the DataBase */
-//         await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { progress: progress + 1 });
-//         // participant.t_nbackn_1_started = Date.now();
-//         // participant.save();
-//     }
-//     catch (error) {
-//         console.log("Error in Updating Progress:  " + error)
-//     }
-//     res.redirect(`/sak?mturkid=${mturk_id}`)
-// })
 
 router.post('/nbacknstats', async (req, res) => {
     /* creating nbackn stat array
     [n, stack_lenght, v_hits, v_mis, v_wrong, l_hit, l_miss, l_wrong]
     */
-    let stat_array = [
-        req.body.n,
-        req.body.stack_lenght,
-        req.body.v_hits,
-        req.body.v_mis,
-        req.body.v_wrong,
-        req.body.l_hit,
-        req.body.l_miss,
-        req.body.l_wrong
-    ]
-    try {
-        //     /* Read from the DataBase */
+    if (!isTrial) {
+        let stat_array = [
+            req.body.n,
+            req.body.stack_lenght,
+            req.body.v_hits,
+            req.body.v_mis,
+            req.body.v_wrong,
+            req.body.l_hit,
+            req.body.l_miss,
+            req.body.l_wrong
+        ]
+        try {
+            //     /* Read from the DataBase */
 
-        let p;
-        if (progress == 0) {
-            p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { nbackn_1: stat_array });
-            p.progress = 1;
-            p.t_nbackn_1_ended = Date.now();
-            p.save();
+            let p;
+            if (progress == 0) {
+                p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { nbackn_1: stat_array });
+                p.progress = 1;
+                p.t_nbackn_1_ended = Date.now();
+                p.save();
+            }
+            else if (progress == 4) {
+                p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { nbackn_2: stat_array });
+                p.t_nbackn_2_ended = Date.now();
+                p.progress = 5;
+                p.save();
+            }
+            return res.redirect(`/sak?mturkid=${mturk_id}`)
         }
-        else if (progress == 4) {
-            p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { nbackn_2: stat_array });
-            p.t_nbackn_2_ended = Date.now();
-            p.progress = 5;
-            p.save();
+        catch (error) {
+            console.log("Error in Updating nbackn stats:  " + error)
         }
-        return res.redirect(`/sak?mturkid=${mturk_id}`)
     }
-    catch (error) {
-        console.log("Error in Updating nbackn stats:  " + error)
+    else {
+        console.log("repeated is : " +typeof(repeated))
+        if(repeated==true){
+            console.log("HERE HAJI 1")
+            return res.redirect(`/startexperiment?mturkid=${mturk_id}`)}
+        else if(repeated==false) {
+            console.log("HERE HAJI 2")
+            return res.redirect(`/tutorial2?mturkid=${mturk_id}`)
+        }
     }
-});
+
+}
+);
 
 
 router.post('/nbackntime', async (req, res) => {
     console.log("in nbackntime router")
+    if (!isTrial) {
+        try {
+            // console.log(req.body)
+            //     /* Read from the DataBase */
+            // await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_1_started: Date.now()});
+            let p;
+            if (progress == 0) {
+                p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_1_started: Date.now() });
+                p.t_nbackn_1_ended = Date.now();
+                p.save();
+            }
+            else if (progress == 5) {
+                p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_2_started: Date.now() });
+                p.t_nbackn_2_ended = Date.now();
+                p.save();
+                console.log(p)
+            }
 
-    try {
-        // console.log(req.body)
-        //     /* Read from the DataBase */
-        // await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_1_started: Date.now()});
-        let p;
-        if (progress == 0) {
-            p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_1_started: Date.now() });
-            p.t_nbackn_1_ended = Date.now();
-            p.save();
+            // participant.t_nbackn_1_started = Date.now();
+            // participant.save();
+            res.send("succeed")
         }
-        else if (progress == 5) {
-            p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_2_started: Date.now() });
-            p.t_nbackn_2_ended = Date.now();
-            p.save();
-            console.log(p)
+        catch (error) {
+            console.log("Error in Updating Progress:  " + error)
         }
-
-        // participant.t_nbackn_1_started = Date.now();
-        // participant.save();
-        res.send("succeed")
-    }
-    catch (error) {
-        console.log("Error in Updating Progress:  " + error)
     }
 })
+
+
+router.get('/trial', async (req, res) => {
+    isTrial = true
+    // res.send(JSON.stringify({n:5}))
+    mturk_id = req.query.mturkid;
+    //send N (difficulty level) to the client
+
+    let repeated_tmp = req.query.repeated
+    //send N (difficulty level) to the client
+    if (typeof repeated_tmp === 'undefined') {
+        repeated = false
+    } else
+    repeated = (repeated_tmp === 'true');
+       
+
+    if (!mturk_id) {
+
+        return res.redirect('/welcome');
+    }
+    else {
+
+        try {
+            //     /* Read from the DataBase */
+            const participant = await ParticipantModel.findOne({ mturk_id: mturk_id });
+            await participant
+            if (!participant)
+                return res.redirect('/welcome');
+            else {
+                // console.log(participant)
+                // console.log(typeof (participant))
+                // sequence_type = participant.sequence_type
+                // progress = participant.progress
+                // if (progress == 0)
+                //     participant.t_nbackn_1_started = Date.now();
+                // else
+                //     participant.t_nbackn_2_started = Date.now();
+                // participant.save();
+                // console.log(`seq is ${sequence_type} and progress is ${progress}`)
+                res.render('startplay')
+
+
+
+            }
+        } catch (error) {
+            console.log("Error is here: " + error)
+        }
+    }
+
+});
+
+
 
 
 module.exports = router;
