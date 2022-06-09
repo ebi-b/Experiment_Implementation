@@ -18,7 +18,7 @@ ________________________________________________________________________
 const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcrypt");
-let alert = require('alert');
+// let alert = require('alert');
 const ParticipantModel = require("../models/participant");
 const mturkidModel = require('../models/mturkid');
 const webPush = require('web-push');
