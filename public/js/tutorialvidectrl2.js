@@ -12,7 +12,7 @@ function toggleControls() {
          'or 2) no further data is available.');
       //window.location.assign('http://127.0.0.1:5500/screens/startplay.html');
       document.getElementById('proceed_btn').innerHTML=
-      `<form action="http://localhost:3000/tutorial2" method="post">
+      `<form action="/tutorial2" method="post">
       <button class="btn" type="submit" onclick="clicked()">Proceed</button>
     </form>`
 

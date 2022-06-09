@@ -1,10 +1,10 @@
 'use strict';
 
 var sw_msgs = '';
-var level_url = "http://localhost:3000/startplay/diflevel"
-var nxt_page_url = "http://localhost:3000/startplay/nbackndone"
-var stat_post_page_url = "http://localhost:3000/startplay/nbacknstats"
-var timestamp_page_url = "http://localhost:3000/startplay/nbackntime"
+var level_url = "/startplay/diflevel"
+var nxt_page_url = "/startplay/nbackndone"
+var stat_post_page_url = "/startplay/nbacknstats"
+var timestamp_page_url = "/startplay/nbackntime"
 
 if ('serviceWorker' in navigator) {
     // Delay registration until after the page has loaded, to ensure that our
@@ -681,7 +681,7 @@ async function goto_score() {
         l_wrong: letter_wrong
     };
 
-    fetch('http://localhost:3000/startplay/nbacknstats', {
+    fetch('/startplay/nbacknstats', {
         method: 'POST', // or 'PUT'
         redirect: 'follow',
         headers: {

@@ -7,7 +7,7 @@ var left = new Array();
 var right = new Array();
 var def = new Array();
 var NUM_SCALES = 6;
-let srv_url ='http://localhost:3000/nasatlx';
+let srv_url ='/nasatlx';
 let selected_in_pairs=[]
 
 scale[0] = "Mental Demand";

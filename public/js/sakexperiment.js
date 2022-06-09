@@ -18,7 +18,7 @@ let phrase_count = 0
 delay_time = 500
 let actions = []
 let actions_t=[]
-const sak_page_url= 'http://localhost:3000/sak'
+const sak_page_url= '/sak'
 
 
 async function onload_actions() {
@@ -455,8 +455,5 @@ function end_sakeExpriment() {
         .catch((error) => {
             console.error('Error:', error);
         });
-  // document.getElementById("body_div").innerHTML =
-  //   `<form action="http://localhost:3000/sak" method="post">
-  //     <button class="btn" type="submit" onclick="clicked()">Proceed</button>
-  //   </form>`
+  
 }
