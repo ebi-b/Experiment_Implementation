@@ -25,5 +25,10 @@
     "joi": "^17.6.0",
     "mongoose": "^6.3.6",
     "web-push": "^3.5.0"
-  }
+  },
+  
+  "scripts": {
+    "start": "node index.js"
+}
+
 }
