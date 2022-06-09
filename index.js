@@ -46,6 +46,7 @@ app.set('view engine', 'html');
 //Routes
 const welcomePageRoute = require('./server/routes/welcomepage');
 app.use('/welcome', welcomePageRoute)
+app.use('/',welcomePageRoute)
 
 const plsPageRoute = require('./server/routes/plspage');
 app.use('/pls', plsPageRoute)
