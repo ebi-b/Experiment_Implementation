@@ -17,13 +17,13 @@ ________________________________________________________________________
 ------------------------------------------------------------------*/
 const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 // let alert = require('alert');
 const ParticipantModel = require("../models/participant");
 const mturkidModel = require('../models/mturkid');
 const webPush = require('web-push');
 const { append } = require('express/lib/response');
-let crypto = require('crypto');
+// let crypto = require('crypto');
 //const listOfMturkIds = [{ id: "jes5", used: false}, { id: "jes6", used: false }, { id: "jes7", used: false }]
 
 router.get('/', (req, res) => {
@@ -114,8 +114,11 @@ router.post('/', async (req, res) => {
 
 
 function getRandomInt() {
-    let cs= (x,y)=>x+(y-x+1)*crypto.getRandomValues(new Uint32Array(1))[0]/2**32|0
-
-    return cs(1,8);
+    // let cs= (x,y)=>x+(y-x+1)*crypto.getRandomValues(new Uint32Array(1))[0]/2**32|0
+let min=1
+let max=8
+    // return cs(1,8);
+    return Math.floor(
+        Math.random() * (max - min + 1) + min)
   }
 module.exports = router;
