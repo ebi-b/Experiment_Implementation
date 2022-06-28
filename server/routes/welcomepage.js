@@ -23,7 +23,8 @@ const ParticipantModel = require("../models/participant");
 const mturkidModel = require('../models/mturkid');
 const webPush = require('web-push');
 const { append } = require('express/lib/response');
-let crypto = require('crypto');
+let crypto = require('crypto').webcrypto;
+// let getRandomValues = require('get-random-values');
 //const listOfMturkIds = [{ id: "jes5", used: false}, { id: "jes6", used: false }, { id: "jes7", used: false }]
 
 router.get('/', (req, res) => {
