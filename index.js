@@ -6,9 +6,10 @@ const mongoose = require('mongoose');
 const cluster = 'cluster0.xyml4'
 const username = 'ebrahimbabaei92'
 const password = 'HTbMzZzU04rEw7rs'
+const dbname = 'firstTaskHeroku'
 var path = require ('path');
 const { string } = require('joi');
-const mongooseUri= process.env.MONGODB_URI||`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+const mongooseUri= process.env.MONGODB_URI||`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`
 
 
 
