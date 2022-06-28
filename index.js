@@ -8,11 +8,15 @@ const username = 'ebrahimbabaei92'
 const password = 'HTbMzZzU04rEw7rs'
 var path = require ('path');
 const { string } = require('joi');
+const mongooseUri= process.env.MONGODB_URI||`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
 
 
+// mongoose.connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+//   .then(() => console.log("Connected to DB"))
+//   .catch(console.error);
 
-mongoose.connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+  mongoose.connect(mongooseUri)
   .then(() => console.log("Connected to DB"))
   .catch(console.error);
 
