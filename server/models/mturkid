@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 
   const MturkidSchema = new mongoose.Schema({
     mturk_id: String,
-    used_before: Boolean
+    used_before: Boolean,
+    completed: {
+      type: Boolean,
+      default: false
+    }
   })
 
   module.exports = mongoose.model('mturkidModel', MturkidSchema)

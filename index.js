@@ -87,6 +87,9 @@ app.use('/tutorial2',tutorial2PageRoute)
 const startExperimentPageRoute = require('./server/routes/startexperiment.js');
 app.use('/startexperiment',startExperimentPageRoute)
 
+const finishedExperimentPageRoute = require('./server/routes/endexperiment.js');
+app.use('/completed',finishedExperimentPageRoute)
+
 
 
 

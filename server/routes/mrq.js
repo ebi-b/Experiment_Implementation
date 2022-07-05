@@ -107,45 +107,50 @@ router.post('/', async (req, res) => {
         req.body.vlp,
         req.body.vpp,
         req.body.vtp,
-        req.body.vp
+        req.body.vp,
+        req.body.ac
     ]
+    if (req.body.ac == 3) {
+        try {
+            //     /* Read from the DataBase */
 
-    try {
-        //     /* Read from the DataBase */
+            let tmp = await ParticipantModel.findOne({ mturk_id: mturk_id });
+            if (!tmp) {
+                console.log("invalid participant in mrq")
+            } else {
+                if (tmp.progress <= 4) {
+                    tmp.mrq_1 = JSON.stringify(mrq_arr)
+                    tmp.progress = tmp.progress + 1
+                    tmp.t_mrq_1_ended = Date.now();
 
-        let tmp = await ParticipantModel.findOne({ mturk_id: mturk_id });
-        if (!tmp) {
-            console.log("invalid participant in mrq")
-        } else {
-            if (tmp.progress <= 4) {
-                tmp.mrq_1 = JSON.stringify(mrq_arr)
-                tmp.progress = tmp.progress + 1
-                tmp.t_mrq_1_ended = Date.now();
+                    await tmp.save()
+                    if (tmp.progress == 4)
+                        res.redirect(`/startplay?mturkid=${mturk_id}`)
+                    else if (tmp.progress == 3)
+                        res.redirect(`/nasatlx?mturkid=${mturk_id}`)
+                }
+                else if ((tmp.progress > 4)) {
+                    tmp.progress = tmp.progress + 1
+                    tmp.mrq_2 = JSON.stringify(mrq_arr)
 
-                await tmp.save()
-                if (tmp.progress == 4)
-                    res.redirect(`/startplay?mturkid=${mturk_id}`)
-                else if (tmp.progress == 3)
-                    res.redirect(`/nasatlx?mturkid=${mturk_id}`)
+                    tmp.t_mrq_2_ended = Date.now();
+                    await tmp.save()
+                    if (tmp.progress == 7)
+                        res.redirect(`/nasatlx?mturkid=${mturk_id}`)
+                    else if (tmp.progress == 8)
+                        res.redirect(`/completed?mturkid=${mturk_id}`)
+                }
             }
-            else if ((tmp.progress > 4)) {
-                tmp.progress = tmp.progress + 1
-                tmp.mrq_2 = JSON.stringify(mrq_arr)
 
-                tmp.t_mrq_2_ended = Date.now();
-                await tmp.save()
-                if (tmp.progress == 7)
-                    res.redirect(`/nasatlx?mturkid=${mturk_id}`)
-                else if (tmp.progress == 8)
-                    res.redirect(`/completed?mturkid=${mturk_id}`)
-            }
         }
 
-    }
 
-
-    catch (error) {
-        console.log("Error in Updating Progress:  " + error)
+        catch (error) {
+            console.log("Error in Updating Progress:  " + error)
+        }
+    }else{
+        // mturk_id=req.query.mturkid
+        return res.redirect(`/completed?mturkid=${mturk_id}`);
     }
 
 })
