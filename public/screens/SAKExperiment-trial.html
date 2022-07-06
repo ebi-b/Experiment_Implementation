@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <title>SAK Experiment</title>
+  <style>
+    #fixedbutton {
+    position: fixed;
+    bottom: 0px;
+    right: 0px; 
+}
+#fixedbutton:hover {
+    background-color: rgb(247, 3, 3);
+}
+  </style>
+</head>
+
+<body onload="onload_actions()">
+<div id="body_div">
+
+  <label for="sak_presented_text">Presented Text</label>
+  <textarea readonly id="sak_presented_text" name="sak_presented_text" class="sak_textarea" rows="2" cols="200">
+  At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+  </textarea>
+
+
+  <label for="sak_transcribed_text">Transcribed Text</label>
+  <textarea readonly id="sak_transcribed_text" name="sak_transcribed_text" class="sak_textarea" rows="2" cols="200">
+
+  </textarea>
+
+
+  <div style="width:'100%';" id="sak_buttons">
+    <div><button id="btn1" type="submit" class="sakBtn" onClick="return false;">ABCDEFGH</button></div>
+    <div><button id="btn2" type="submit" class="sakBtn" onClick="return false;">IJKLMNOP</button></div>
+    <div><button id="btn3" type="submit" class="sakBtn" onClick="return false;">QRSTUVWXYZ</button></div>
+    <div><button id="btn4" type="submit" class="sakBtn" onClick="return false;">[space]</button></div>
+  </div>
+
+  <label for="sak_currenty_keys">Currenty Keys</label>
+  <textarea readonly id="sak_currenty_keys" name="sak_currenty_keys" class="sak_textarea" rows="2" cols="200">
+
+  </textarea>
+
+  <label for="sak_candidate_words">Candidate Words</label>
+  <!-- <textarea readonly id="sak_candidate_words" name="sak_candidate_words" class="sak_textarea" rows="8" cols="200"> -->
+  <div style="width:'100%';" id="sak_candidate_buttons">
+    <!-- <div><button id="btn1" type="submit" class="sakBtn2" onClick="return false;">ABCDEFGH</button></div>
+    <div><button id="btn2" type="submit" class="sakBtn2" onClick="return false;">IJKLMNOP</button></div> -->
+
+  </div>
+
+  </textarea>
+
+  <div><button id="fixedbutton" type="submit" class="sakBtn" onclick="history.back()">Back to the Instructions</button></div>  
+  
+  <script src="/js/sakexperiment.js"></script>
+
+</div>
+</body>
+
+</html>

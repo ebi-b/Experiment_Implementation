@@ -15,15 +15,17 @@ let selected_words = []
 let presented_text = ""
 const phrase_count_limit = 1
 let phrase_count = 0
-delay_time = 500
+let delay_time = 500
 let actions = []
-let actions_t=[]
-const sak_page_url= '/sak'
+let actions_t = []
+const sak_page_url = '/sak'
+const level_url = "/sak/diflevel"
 
 
 async function onload_actions() {
   set_presented_text();
   blinking();
+  setting_dif_level(level_url)
   codes = await readDictionary();
   keypress_management();
   //console.log(words)
@@ -434,26 +436,47 @@ function appendButton(button_text) {
 }
 
 function end_sakeExpriment() {
-  const data ={
-    "actions" : actions,
-    "timestamps" : actions_t
+  const data = {
+    "actions": actions,
+    "timestamps": actions_t
   }
   fetch(sak_page_url, {
-        method: 'POST', // or 'PUT'
-        redirect: 'follow',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-        .then(response => {
-            if (response.redirected) {
-                window.location.href = response.url;
-            }
-        }
-        )
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-  
+    method: 'POST', // or 'PUT'
+    redirect: 'follow',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => {
+      if (response.redirected) {
+        window.location.href = response.url;
+      }
+    }
+    )
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+}
+
+async function setting_dif_level(url) {
+  var N = 1
+  const response = await fetch(url);
+
+  // Storing data in form of JSON
+  var data = await response.json();
+  //data=JSON.stringify(data)
+  console.log(data);
+  if (response) {
+    // hideloader();
+    N = data.n
+
+  }
+  // var N = window.prompt("Enter difficulty level: ");
+  // alert("Difficulty level is " + N);
+  if (N)
+    delay_time = N
+
+  console.log(`N is ${N} and Delay time is ${delay_time}`)
 }

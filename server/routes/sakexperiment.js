@@ -11,8 +11,8 @@ let isTrial = true
 /************* Progress Sequence Block *************/
 const E_n = 1
 const H_n = 3
-const E_s = 0
-const H_s = 0
+const E_s = 500
+const H_s = 1000
 const seq_prog = [
     [E_n, E_s, 1, 2, H_n, E_s, 1, 2],
     [E_n, E_s, 2, 1, H_n, E_s, 2, 1],
@@ -181,7 +181,7 @@ router.get('/trial', async (req, res) => {
             //         participant.t_sak_2_started = Date.now();
             //     participant.save();
             //     //console.log(`seq is ${sequence_type} and progress is ${progress}`)
-            res.render('SAKExperiment')
+            res.render('SAKExperiment-trial')
 
 
 
@@ -193,7 +193,18 @@ router.get('/trial', async (req, res) => {
 
 });
 
+router.get('/diflevel', (req, res) => {
+    if (isTrial)
+        res.send(JSON.stringify({ n: E_s }));
+    else
+    {
+        if(sequence_type<=3)
+            res.send(JSON.stringify({ n: E_s }));
+        else if(sequence_type>3)
+            res.send(JSON.stringify({ n: H_s }));
+    }
 
+})
 module.exports = router;
 
 
