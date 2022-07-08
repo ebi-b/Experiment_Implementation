@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baseline Video</title>
+  <title>Instructions</title>
   <link rel="stylesheet" href="/styles/main.css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 
@@ -16,8 +16,10 @@
     }
 
     .container video {
-      width: 100%;
-      height: auto;
+      width: 85%;
+      height: 85%;
+      display: block;
+      margin: auto;
     }
 
     .container .btn {
@@ -46,13 +48,13 @@
 
 <body onload="toggleControls()">
   <div class="container">
-    <video controls id="baselinevideo" width="100%" left="0px" top="0px" autoplay="True" controls muted>
+    <video controls id="baselinevideo" autoplay="True" controls muted>
       <source src="/video/tutorial1.mp4" type="video/mp4">
       <p>Your browser doesn't support HTML5 video. Here is
         a <a href="/video/tutorial1.mp4">link to the video</a> instead.</p>
     </video>
     <div id="proceed_btn">
-    
+
     </div>
   </div>
   <script src="/js/tutorialvidectrl.js"></script>
