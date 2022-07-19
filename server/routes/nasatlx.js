@@ -31,9 +31,9 @@ const seq_prog = [
 router.get('/', async (req, res) => {
 
     // res.send(JSON.stringify({n:5}))
-    mturk_id = req.query.mturkid;
+    req.session.mturk_id = req.query.mturkid;
     //send N (difficulty level) to the client
-    if (!mturk_id) {
+    if (!req.session.mturk_id) {
 
         return res.redirect('/welcome');
     }
@@ -41,17 +41,17 @@ router.get('/', async (req, res) => {
 
         try {
             //     /* Read from the DataBase */
-            const participant = await ParticipantModel.find({ mturk_id: mturk_id });
+            const participant = await ParticipantModel.find({ mturk_id: req.session.mturk_id });
             await participant
             if (!participant)
                 return res.redirect('/welcome');
             else {
                 console.log(participant)
                 console.log(typeof (participant))
-                sequence_type = participant[0].sequence_type
-                progress = participant[0].progress
-                console.log(`seq is ${sequence_type} and progress is ${progress}`)
-                if (progress <= 4)
+                req.session.sequence_type = participant[0].sequence_type
+                req.session.progress = participant[0].progress
+                console.log(`seq is ${req.session.sequence_type} and progress is ${req.session.progress}`)
+                if (req.session.progress <= 4)
                     participant[0].t_nasa_1_started = Date.now();
                 else
                     participant[0].t_nasa_2_started = Date.now();
@@ -117,7 +117,7 @@ router.post('/', async (req, res) => {
     try {
         //     /* Read from the DataBase */
 
-        let tmp = await ParticipantModel.findOne({ mturk_id: mturk_id });
+        let tmp = await ParticipantModel.findOne({ mturk_id: req.session.mturk_id });
         if (!tmp) {
             console.log("invalid participant in nasa")
         } else {
@@ -129,9 +129,9 @@ router.post('/', async (req, res) => {
                 tmp.t_nasa_1_ended = Date.now();
                 await tmp.save();
                 if (tmp.progress == 4)
-                    res.redirect(`/startplay?mturkid=${mturk_id}`);
+                    res.redirect(`/startplay?mturkid=${req.session.mturk_id}`);
                 else if (tmp.progress == 3)
-                    res.redirect(`/mrq?mturkid=${mturk_id}`);
+                    res.redirect(`/mrq?mturkid=${req.session.mturk_id}`);
             }
             else if ((tmp.progress > 4)) {
                 tmp.nasa_2_r = JSON.stringify(req.body.rates);
@@ -141,9 +141,9 @@ router.post('/', async (req, res) => {
                 tmp.nasa_2_pairs = JSON.stringify(req.body.pairs);
                 await tmp.save()
                 if (tmp.progress == 7)
-                    res.redirect(`/mrq?mturkid=${mturk_id}`)
+                    res.redirect(`/mrq?mturkid=${req.session.mturk_id}`)
                 else if (tmp.progress == 8)
-                    res.redirect(`/completed?mturkid=${mturk_id}`)
+                    res.redirect(`/completed?mturkid=${req.session.mturk_id}`)
             }
         }
 

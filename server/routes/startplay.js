@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 let mturk_id = ""
-let nbackn_difficulty_level = 0;
 const ParticipantModel = require('../models/participant')
 let sequence_type = 0
 let progress = 0
@@ -28,11 +27,11 @@ const seq_prog = [
 
 
 router.get('/', async (req, res) => {
-    isTrial = false
+    req.session.isTrial = false
     // res.send(JSON.stringify({n:5}))
-    mturk_id = req.query.mturkid;
+    req.session.mturk_id = req.query.mturkid;
     //send N (difficulty level) to the client
-    if (!mturk_id) {
+    if (!req.session.mturk_id) {
 
         return res.redirect('/welcome');
     }
@@ -40,21 +39,21 @@ router.get('/', async (req, res) => {
 
         try {
             //     /* Read from the DataBase */
-            const participant = await ParticipantModel.findOne({ mturk_id: mturk_id });
+            const participant = await ParticipantModel.findOne({ mturk_id: req.session.mturk_id });
             await participant
             if (!participant)
                 return res.redirect('/welcome');
             else {
                 console.log(participant)
                 console.log(typeof (participant))
-                sequence_type = participant.sequence_type
-                progress = participant.progress
-                if (progress == 0)
+                req.session.sequence_type = participant.sequence_type
+                req.session.progress = participant.progress
+                if (req.session.progress == 0)
                     participant.t_nbackn_1_started = Date.now();
                 else
                     participant.t_nbackn_2_started = Date.now();
                 participant.save();
-                console.log(`seq is ${sequence_type} and progress is ${progress}`)
+                console.log(`seq is ${req.session.sequence_type} and progress is ${req.session.progress}`)
                 res.render('startplay')
 
 
@@ -68,10 +67,10 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/diflevel', (req, res) => {
-    if (isTrial)
+    if (req.session.isTrial)
         res.send(JSON.stringify({ n: 2 }));
     else
-        res.send(JSON.stringify({ n: seq_prog[sequence_type - 1][progress] }));
+        res.send(JSON.stringify({ n: seq_prog[req.session.sequence_type - 1][req.session.progress] }));
 
 
 })
@@ -81,7 +80,7 @@ router.post('/nbacknstats', async (req, res) => {
     /* creating nbackn stat array
     [n, stack_lenght, v_hits, v_mis, v_wrong, l_hit, l_miss, l_wrong]
     */
-    if (!isTrial) {
+    if (!req.session.isTrial) {
         let stat_array = [
             req.body.n,
             req.body.stack_lenght,
@@ -96,32 +95,32 @@ router.post('/nbacknstats', async (req, res) => {
             //     /* Read from the DataBase */
 
             let p;
-            if (progress == 0) {
-                p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { nbackn_1: stat_array });
+            if (req.session.progress == 0) {
+                p = await ParticipantModel.findOneAndUpdate({ mturk_id: req.session.mturk_id }, { nbackn_1: stat_array });
                 p.progress = 1;
                 p.t_nbackn_1_ended = Date.now();
                 p.save();
             }
-            else if (progress == 4) {
-                p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { nbackn_2: stat_array });
+            else if (req.session.progress == 4) {
+                p = await ParticipantModel.findOneAndUpdate({ mturk_id: req.session.mturk_id }, { nbackn_2: stat_array });
                 p.t_nbackn_2_ended = Date.now();
                 p.progress = 5;
                 p.save();
             }
-            return res.redirect(`/sak?mturkid=${mturk_id}`)
+            return res.redirect(`/sak?mturkid=${req.session.mturk_id}`)
         }
         catch (error) {
             console.log("Error in Updating nbackn stats:  " + error)
         }
     }
     else {
-        console.log("repeated is : " +typeof(repeated))
-        if(repeated==true){
+        console.log("repeated is : " +typeof(req.session.repeated))
+        if(req.session.repeated==true){
             console.log("HERE HAJI 1")
-            return res.redirect(`/startexperiment?mturkid=${mturk_id}`)}
-        else if(repeated==false) {
+            return res.redirect(`/startexperiment?mturkid=${req.session.mturk_id}`)}
+        else if(req.session.repeated==false) {
             console.log("HERE HAJI 2")
-            return res.redirect(`/tutorial2?mturkid=${mturk_id}`)
+            return res.redirect(`/tutorial2?mturkid=${req.session.mturk_id}`)
         }
     }
 
@@ -131,19 +130,19 @@ router.post('/nbacknstats', async (req, res) => {
 
 router.post('/nbackntime', async (req, res) => {
     console.log("in nbackntime router")
-    if (!isTrial) {
+    if (!req.session.isTrial) {
         try {
             // console.log(req.body)
             //     /* Read from the DataBase */
             // await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_1_started: Date.now()});
             let p;
-            if (progress == 0) {
-                p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_1_started: Date.now() });
+            if (req.session.progress == 0) {
+                p = await ParticipantModel.findOneAndUpdate({ mturk_id: req.session.mturk_id }, { t_nbackn_1_started: Date.now() });
                 p.t_nbackn_1_ended = Date.now();
                 p.save();
             }
-            else if (progress == 5) {
-                p = await ParticipantModel.findOneAndUpdate({ mturk_id: mturk_id }, { t_nbackn_2_started: Date.now() });
+            else if (req.session.progress == 5) {
+                p = await ParticipantModel.findOneAndUpdate({ mturk_id: req.session.mturk_id }, { t_nbackn_2_started: Date.now() });
                 p.t_nbackn_2_ended = Date.now();
                 p.save();
                 console.log(p)
@@ -161,20 +160,20 @@ router.post('/nbackntime', async (req, res) => {
 
 
 router.get('/trial', async (req, res) => {
-    isTrial = true
+    req.session.isTrial = true
     // res.send(JSON.stringify({n:5}))
-    mturk_id = req.query.mturkid;
+    req.session.mturk_id = req.query.mturkid;
     //send N (difficulty level) to the client
 
     let repeated_tmp = req.query.repeated
     //send N (difficulty level) to the client
     if (typeof repeated_tmp === 'undefined') {
-        repeated = false
+        req.session.repeated = false
     } else
-    repeated = (repeated_tmp === 'true');
+    req.session.repeated = (repeated_tmp === 'true');
        
 
-    if (!mturk_id) {
+    if (!req.session.mturk_id) {
 
         return res.redirect('/welcome');
     }
@@ -182,7 +181,7 @@ router.get('/trial', async (req, res) => {
 
         try {
             //     /* Read from the DataBase */
-            const participant = await ParticipantModel.findOne({ mturk_id: mturk_id });
+            const participant = await ParticipantModel.findOne({ mturk_id: req.session.mturk_id });
             await participant
             if (!participant)
                 return res.redirect('/welcome');

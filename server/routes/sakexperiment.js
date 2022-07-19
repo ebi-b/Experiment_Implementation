@@ -36,11 +36,11 @@ const seq_prog = [
 
 
 router.get('/', async (req, res) => {
-    isTrial = false
+    req.session.isTrial = false
     // res.send(JSON.stringify({n:5}))
-    mturk_id = req.query.mturkid;
+    req.session.mturk_id = req.query.mturkid;
     //send N (difficulty level) to the client
-    if (!mturk_id) {
+    if (!req.session.mturk_id) {
 
         return res.redirect('/welcome');
     }
@@ -48,16 +48,16 @@ router.get('/', async (req, res) => {
 
         try {
             //     /* Read from the DataBase */
-            const participant = await ParticipantModel.findOne({ mturk_id: mturk_id });
+            const participant = await ParticipantModel.findOne({ mturk_id: req.session.mturk_id });
             await participant
             if (!participant)
                 return res.redirect('/welcome');
             else {
                 console.log("Participant i begining of SAK: " + participant)
                 // console.log(typeof (participant))
-                sequence_type = participant.sequence_type
-                progress = participant.progress
-                if (progress == 1)
+                req.session.sequence_type = participant.sequence_type
+                req.session.progress = participant.progress
+                if (req.session.progress == 1)
                     participant.t_sak_1_started = Date.now();
                 else
                     participant.t_sak_2_started = Date.now();
@@ -94,8 +94,8 @@ router.get('/', async (req, res) => {
 //     }
 
 router.post('/', async (req, res) => {
-    if (isTrial) {
-        return res.redirect(`/startexperiment?mturkid=${mturk_id}`)
+    if (req.session.isTrial) {
+        return res.redirect(`/startexperiment?mturkid=${req.session.mturk_id}`)
 
     }
 
@@ -104,8 +104,8 @@ router.post('/', async (req, res) => {
             console.log("ACTS:" + req.body.actions)
             console.log("T: " + req.body.timestamps)
             //     /* Read from the DataBase */
-            let p_temp = await ParticipantModel.findOne({ mturk_id: mturk_id });
-            if (progress == 1) {
+            let p_temp = await ParticipantModel.findOne({ mturk_id: req.session.mturk_id });
+            if (req.session.progress == 1) {
                 p_temp.t_sak_1_ended = Date.now();
                 p_temp.sak_1_actions = req.body.actions
                 p_temp.sak_1_actions_t = req.body.timestamps
@@ -127,9 +127,9 @@ router.post('/', async (req, res) => {
             seq_t = seq_t - 1
             if (prog <= 7) {
                 if (seq_prog[seq_t][prog] == 1)
-                    return res.redirect(`/nasatlx?mturkid=${mturk_id}`)
+                    return res.redirect(`/nasatlx?mturkid=${req.session.mturk_id}`)
                 else if (seq_prog[seq_t][prog] == 2)
-                    return res.redirect(`/mrq?mturkid=${mturk_id}`)
+                    return res.redirect(`/mrq?mturkid=${req.session.mturk_id}`)
                 else {
                     console.log("Invalid Progress Number")
                 }
@@ -149,16 +149,16 @@ router.post('/', async (req, res) => {
 
 
 router.get('/trial', async (req, res) => {
-    isTrial = true
+    req.session.isTrial = true
     // res.send(JSON.stringify({n:5}))
-    mturk_id = req.query.mturkid;
+    req.session.mturk_id = req.query.mturkid;
     repeated = req.query.repeated
     //send N (difficulty level) to the client
     if (!repeated) {
         repeated = false
     }
     //send N (difficulty level) to the client
-    if (!mturk_id) {
+    if (!req.session.mturk_id) {
 
         return res.redirect('/welcome');
     }
@@ -194,13 +194,13 @@ router.get('/trial', async (req, res) => {
 });
 
 router.get('/diflevel', (req, res) => {
-    if (isTrial)
+    if (req.session.isTrial)
         res.send(JSON.stringify({ n: E_s }));
     else
     {
-        if(sequence_type<=3)
+        if(req.session.req.session.sequence_type<=3)
             res.send(JSON.stringify({ n: E_s }));
-        else if(sequence_type>3)
+        else if(req.session.sequence_type>3)
             res.send(JSON.stringify({ n: H_s }));
     }
 

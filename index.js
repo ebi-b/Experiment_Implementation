@@ -7,9 +7,10 @@ const cluster = 'cluster0.xyml4'
 const username = 'ebrahimbabaei92'
 const password = 'HTbMzZzU04rEw7rs'
 const dbname = 'firstTaskHeroku'
-var path = require ('path');
+var path = require('path');
 const { string } = require('joi');
-const mongooseUri= process.env.MONGODB_URI||`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`
+const mongooseUri = process.env.MONGODB_URI || `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`
+const session = require('express-session');
 
 
 
@@ -17,12 +18,18 @@ const mongooseUri= process.env.MONGODB_URI||`mongodb+srv://${username}:${passwor
 //   .then(() => console.log("Connected to DB"))
 //   .catch(console.error);
 
-  mongoose.connect(mongooseUri)
+mongoose.connect(mongooseUri)
   .then(() => console.log("Connected to DB"))
   .catch(console.error);
 
 
 // We are using our packages here
+app.use(session({
+  secret: 'ssshhhhh',
+  // create new redis store.node_modules\@redis\client\dist\lib\client\index.js:409379, client: client, ttl: 260 }),
+  saveUninitialized: false,
+  resave: false
+}));
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
@@ -35,8 +42,8 @@ app.use(express.static('public'));
 //app.use(express.static('public'))
 
 //setting the view folder
- dir = __dirname.split('\\')
- let participant_mturk_id = "Temporary"
+dir = __dirname.split('\\')
+let participant_mturk_id = "Temporary"
 //console.log(dir)
 // var s = "";
 // for (i = 0; i < dir.length - 1; i++)
@@ -51,7 +58,7 @@ app.set('view engine', 'html');
 //Routes
 const welcomePageRoute = require('./server/routes/welcomepage');
 app.use('/welcome', welcomePageRoute)
-app.use('/',welcomePageRoute)
+app.use('/', welcomePageRoute)
 
 const plsPageRoute = require('./server/routes/plspage');
 app.use('/pls', plsPageRoute)
@@ -76,19 +83,19 @@ const mrqPageRoute = require('./server/routes/mrq');
 app.use('/mrq', mrqPageRoute)
 
 const nasatlxPageRoute = require('./server/routes/nasatlx.js');
-app.use('/nasatlx',nasatlxPageRoute)
+app.use('/nasatlx', nasatlxPageRoute)
 
 const tutorial1PageRoute = require('./server/routes/tutorial1.js');
-app.use('/tutorial1',tutorial1PageRoute)
+app.use('/tutorial1', tutorial1PageRoute)
 
 const tutorial2PageRoute = require('./server/routes/tutorial2.js');
-app.use('/tutorial2',tutorial2PageRoute)
+app.use('/tutorial2', tutorial2PageRoute)
 
 const startExperimentPageRoute = require('./server/routes/startexperiment.js');
-app.use('/startexperiment',startExperimentPageRoute)
+app.use('/startexperiment', startExperimentPageRoute)
 
 const finishedExperimentPageRoute = require('./server/routes/endexperiment.js');
-app.use('/completed',finishedExperimentPageRoute)
+app.use('/completed', finishedExperimentPageRoute)
 
 
 

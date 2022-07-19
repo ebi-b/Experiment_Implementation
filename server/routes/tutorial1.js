@@ -10,17 +10,16 @@ router.get('/', async (req, res) => {
     // res.render('baseline_video');
     // mturk_id=req.query.mturkid
     // //console.log("In the baseline router");
-
-    mturk_id = req.query.mturkid;
+    req.session.mturk_id = req.query.mturkid;
     let repeated_tmp = req.query.repeated
     console.log("AMAN"+repeated_tmp+ typeof(repeated_tmp))
     //send N (difficulty level) to the client
     if (typeof repeated_tmp === 'undefined') {
-        repeated = false
+        req.session.repeated = false
     } else
-    repeated = (repeated_tmp === "true");
-    console.log(repeated)
-    if (!mturk_id) {
+    req.session.repeated = (repeated_tmp === "true");
+    console.log(req.session.repeated)
+    if (!req.session.mturk_id) {
 
         return res.redirect('/welcome');
     }
@@ -53,13 +52,13 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    console.log(mturk_id)
+    console.log(req.session.mturk_id)
     // console.log("reached the baseline post page");
     // res.redirect(`/startplay?mturkid=${mturk_id}`)
     //res.send(req.body)
     //res.redirect("https://github.com/pugjs/pug/issues/1355")
     //res.redirect('/welcome');
-    if (!mturk_id) {
+    if (!req.session.mturk_id) {
 
         return res.redirect('/welcome');
     }
@@ -67,12 +66,12 @@ router.post('/', async (req, res) => {
 
         try {
             //     /* Read from the DataBase */
-            let participant = await ParticipantModel.findOne({ mturk_id: mturk_id });
+            let participant = await ParticipantModel.findOne({ mturk_id: req.session.mturk_id });
             await participant
             if (!participant)
                 return res.redirect('/welcome');
             else {
-                res.redirect(`/startplay/trial?mturkid=${mturk_id}&repeated=${repeated}`)
+                res.redirect(`/startplay/trial?mturkid=${req.session.mturk_id}&repeated=${req.session.repeated}`)
 
             }
         } catch (error) {
